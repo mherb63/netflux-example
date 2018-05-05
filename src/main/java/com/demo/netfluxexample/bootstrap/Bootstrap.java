@@ -22,13 +22,14 @@ public class Bootstrap implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        movieRepository.deleteAll().thenMany(
-                Flux.just("Silence of the Lambs", "AEon Flux", "Enter the Mongo<Void>", "The Fluxination", "Back to the Future", "Meet the Fluxses", "Lord of the Fluxes")
-                        .map(title -> new Movie(title, UUID.randomUUID().toString()))
-                        .flatMap(movieRepository::save))
-                        .subscribe(null, null, () -> {
-                            movieRepository.findAll().subscribe(System.out::println);
-                        });
-
+        movieRepository.deleteAll()
+                .thenMany(
+                        Flux.just("Silence of the Lambdas", "AEon Flux", "Enter the Mono<Void>", "The Fluxxinator",
+                                "Back to the Future", "Meet the Fluxes", "Lord of the Fluxes")
+                                .map(title -> new Movie(title))
+                                .flatMap(movieRepository::save))
+                .subscribe(null, null, () -> {
+                    movieRepository.findAll().subscribe(System.out::println);
+                });
     }
 }
